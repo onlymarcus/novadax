@@ -82,6 +82,10 @@ def novadax_eosu():
     novadaxTick1 = requests.get("https://api.novadax.com/v1/market/ticker?symbol=EOS_USDT")
     return novadaxTick1.json()['data']['lastPrice']
 
+def novadax_eose():
+    novadaxTick1 = requests.get("https://api.novadax.com/v1/market/ticker?symbol=EOS_ETH")
+    return novadaxTick1.json()['data']['lastPrice']
+
 def novadax_ada():
     novadaxTick1 = requests.get("https://api.novadax.com/v1/market/ticker?symbol=ADA_BRL")
     return novadaxTick1.json()['data']['lastPrice']
@@ -157,22 +161,28 @@ while True:
     #print('TRIANGULAÇÃO BNB-BRL-ETH: ', novadaxlivebnb - (novadaxlivebnbe * novadaxliveeth))
 
     novadaxlivexlm = float(novadax_xlm())
-    print ('XLM = BRL',novadaxlivexlm)
-
-    novadaxlivebnb = float(novadax_bnb())
-    print ('BNB = BRL',novadaxlivebnb)
+    novadaxlivexlmu = float(novadax_xlmu())
+    print ('XLM/BRL: ',novadaxlivexlm, 'XLM/USDT: ', novadaxlivexlmu, 'Cambio: ', novadaxlivexlm/novadaxlivexlmu)
 
     novadaxliveeos = float(novadax_eos())
-    print ('EOS = BRL',novadaxliveeos)
+    novadaxliveeosu = float(novadax_eosu())
+    novadaxliveeose = float(novadax_eose())
+    print ('EOS/BRL: ',novadaxliveeos, 'EOS/USDT', novadaxliveeosu, 'Cambio: ', novadaxliveeos/novadaxliveeosu)
 
     novadaxlivedash = float(novadax_dash())
-    print ('DASH = BRL',novadaxlivedash)
-
-
+    novadaxlivedashu = float(novadax_dashu())
+    print ('DASH/BRL: ',novadaxlivedash, 'DASH/USDT: ', novadaxlivedash, 'Cambio: ', novadaxlivedash/novadaxlivedashu)
 
     novadaxliveiota = float(novadax_iota())
-    print ('IOTA = BRL',novadaxliveiota)
+    novadaxliveiotau = float(novadax_iotau())
+    print ('IOTA/BRL: ',novadaxliveiota, 'IOTA/USDT: ', novadaxliveiotau, 'Cambio: ', novadaxliveiota/novadaxliveiotau)
+    print('----------------------------------------')
+    print('TRIANGULAÇÃO COM REAIS-CRIPTO-ETHEREUM')
 
+    print('REAIS-BNB-ETH-REAIS')
+    print('Lucro/Prejuízo: ', (novadaxlivebnbe*novadaxliveeth)-novadaxlivebnb)
 
+    print('REAIS-EOS-ETH-REAIS')
+    print('Lucro/Prejuízo: ', (novadaxliveeose*novadaxliveeth)-novadaxliveeos)
 
     time.sleep(1200)
